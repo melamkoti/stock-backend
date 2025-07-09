@@ -18,8 +18,8 @@ app.use(
 );
 
 // Body parsing middleware
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true, }));
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
@@ -32,13 +32,15 @@ app.get("/api/health", (req, res) => {
 });
 
 // API routes
-app.use("/api/posts", PostsRoute);
+app.use("/posts", PostsRoute);
 // app.use("/api/admin", adminRoutes);
 // app.use("/api/upload", uploadRoutes);
 
 app.get("/", (req, res) => {
   res.send("App is Running");
 });
+app.use("/uploads", express.static("public/uploads"));
+
 // 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({
@@ -65,7 +67,6 @@ app.listen(PORT, () => {
  Port: ${PORT}
  Environment: ${process.env.NODE_ENV}
  Database: ${process.env.DATABASE_URL ? "Connected" : "Not configured"}
- AWS S3: ${process.env.AWS_S3_BUCKET_NAME ? "Configured" : "Not configured"}
   `);
 });
 
