@@ -5,7 +5,7 @@ import {
   DeletePost,
   PostThePost,
 } from "../controllers/PostController.js";
-import upload from "../utils/s3Service.js";
+import {upload} from "../utils/multer.js";
 const router = express.Router();
 
 // Protected routes
